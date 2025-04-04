@@ -18,13 +18,13 @@ export default function Gallery() {
   const slides = images.map((src) => ({ src }));
 
   return (
-    <section className="min-h-screen py-20 bg-gradient-to-b from-purple-100 to-pink-100">
+    <section className="min-h-screen py-20 bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50">
       <div className="max-w-6xl mx-auto px-4">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-5xl font-bold text-center mb-12 text-purple-800"
+          className="text-4xl md:text-5xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600"
         >
           Kenangan Indah 📸
         </motion.h2>
@@ -37,15 +37,16 @@ export default function Gallery() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ scale: 1.05 }}
-              className="relative aspect-square rounded-xl overflow-hidden shadow-lg cursor-pointer"
+              className="relative aspect-square rounded-xl overflow-hidden shadow-lg cursor-pointer group"
               onClick={() => setIndex(index)}
             >
               <Image
                 src={src}
                 alt={`Birthday photo ${index + 1}`}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-300 group-hover:scale-110"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-violet-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           ))}
         </div>

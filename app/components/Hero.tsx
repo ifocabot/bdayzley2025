@@ -14,7 +14,7 @@ export default function Hero() {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
-  const photos = ["/birthday1.jpg", "/birthday2.jpg", "/birthday3.jpg"];
+  const photos = ["/img/11.jpg", "/img/13.jpg", "/img/14.jpg"];
 
   useEffect(() => {
     setIsClient(true);
@@ -58,9 +58,9 @@ export default function Hero() {
   ];
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section className="relative flex items-center justify-center min-h-screen overflow-hidden">
       {/* 3D Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200">
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-200 via-purple-200 to-fuchsia-200">
         {/* Animated circles for depth effect */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(20)].map((_, i) => (
@@ -123,12 +123,12 @@ export default function Hero() {
 
         {/* Animated gradient overlay */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-pink-300/30 to-purple-300/30"
+          className="absolute inset-0 bg-gradient-to-br from-violet-300/30 to-fuchsia-300/30"
           animate={{
             background: [
-              "linear-gradient(to bottom right, rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3))",
-              "linear-gradient(to bottom right, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3))",
-              "linear-gradient(to bottom right, rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3))",
+              "linear-gradient(to bottom right, rgba(139, 92, 246, 0.3), rgba(217, 70, 239, 0.3))",
+              "linear-gradient(to bottom right, rgba(217, 70, 239, 0.3), rgba(139, 92, 246, 0.3))",
+              "linear-gradient(to bottom right, rgba(139, 92, 246, 0.3), rgba(217, 70, 239, 0.3))",
             ],
           }}
           transition={{
@@ -170,13 +170,13 @@ export default function Hero() {
               repeat: Infinity,
               ease: "linear",
             }}
-            className="absolute text-4xl md:text-6xl z-10"
+            className="absolute z-10 text-4xl md:text-6xl"
           >
             {emoji}
           </motion.div>
         ))}
 
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-4">
+      <div className="relative z-10 flex flex-col items-center justify-center gap-8 px-4 md:flex-row md:gap-16">
         <motion.div
           initial={{ opacity: 0, x: -100 }}
           animate={{ opacity: 1, x: 0 }}
@@ -187,7 +187,7 @@ export default function Hero() {
             initial={{ scale: 0.5 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-purple-800 mb-6 drop-shadow-lg"
+            className="mb-6 text-5xl font-bold text-transparent md:text-7xl lg:text-8xl bg-clip-text bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 drop-shadow-lg"
           >
             Selamat Ulang Tahun!
           </motion.h1>
@@ -195,7 +195,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-xl md:text-2xl text-purple-600 mb-4 drop-shadow-md"
+            className="mb-4 text-xl text-purple-600 md:text-2xl drop-shadow-md"
           >
             🎉 Scroll untuk melihat kejutan! 🎉
           </motion.p>
@@ -203,12 +203,12 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="flex justify-center md:justify-start gap-4"
+            className="flex justify-center gap-4 md:justify-start"
           >
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="bg-purple-600 text-white px-6 py-3 rounded-full shadow-lg"
+              className="px-6 py-3 text-white transition-all rounded-full shadow-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700"
             >
               Mulai Petualangan
             </motion.button>
@@ -219,7 +219,7 @@ export default function Hero() {
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="relative w-64 h-64 md:w-80 md:h-80 z-10"
+          className="relative z-10 w-64 h-64 md:w-80 md:h-80"
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -228,7 +228,7 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.5 }}
-              className="absolute inset-0 rounded-full overflow-hidden border-4 border-purple-500 shadow-xl"
+              className="absolute inset-0 overflow-hidden border-4 border-purple-500 rounded-full shadow-xl"
             >
               <Image
                 src={photos[currentPhotoIndex]}
@@ -249,7 +249,7 @@ export default function Hero() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute -top-6 -right-6 bg-yellow-400 text-purple-800 p-3 rounded-full shadow-lg text-2xl"
+            className="absolute p-3 text-2xl text-purple-800 bg-yellow-400 rounded-full shadow-lg -top-6 -right-6"
           >
             🎂
           </motion.div>
@@ -259,11 +259,11 @@ export default function Hero() {
       <motion.div
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-purple-700 z-10"
+        className="absolute z-10 text-purple-700 transform -translate-x-1/2 bottom-10 left-1/2"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-8 w-8"
+          className="w-8 h-8"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

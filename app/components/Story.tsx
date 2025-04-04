@@ -54,7 +54,25 @@ export default function Story() {
   }, []);
 
   return (
-    <section className="min-h-screen py-20 relative overflow-hidden">
+    <section className="relative min-h-screen py-20 overflow-hidden">
+      {/* Animated gradient background */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50"
+        animate={{
+          background: [
+            "linear-gradient(to bottom right, rgb(237, 233, 254), rgb(243, 232, 255), rgb(245, 243, 255))",
+            "linear-gradient(to bottom right, rgb(243, 232, 255), rgb(237, 233, 254), rgb(245, 243, 255))",
+            "linear-gradient(to bottom right, rgb(245, 243, 255), rgb(243, 232, 255), rgb(237, 233, 254))",
+          ],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut",
+        }}
+      />
+
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {isClient &&
@@ -71,59 +89,105 @@ export default function Story() {
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.1, 0.2, 0.1],
+                y: [0, Math.random() * 100 - 50],
+                x: [0, Math.random() * 100 - 50],
               }}
               transition={{
                 duration: 5 + Math.random() * 5,
                 repeat: Infinity,
                 delay: Math.random() * 2,
+                ease: "easeInOut",
               }}
             />
           ))}
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 relative z-10">
+      <div className="relative z-10 max-w-6xl px-4 mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold text-center mb-16 text-purple-800"
+          className="mb-16 text-4xl font-bold text-center text-purple-800 md:text-5xl"
         >
           Cerita & Kenangan 📖
         </motion.h2>
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-purple-300/50" />
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            whileInView={{ height: "100%", opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="absolute w-1 h-full transform -translate-x-1/2 left-1/2 bg-gradient-to-b from-violet-300/50 via-purple-300/50 to-fuchsia-300/50"
+          />
 
           {/* Timeline events */}
           <div className="space-y-16">
             {timelineEvents.map((event, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50, y: 20 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.2,
+                  type: "spring",
+                  stiffness: 100,
+                }}
                 viewport={{ once: true }}
                 className={`flex flex-col md:flex-row items-center ${
                   index % 2 === 0 ? "md:flex-row-reverse" : ""
                 } gap-8`}
               >
                 {/* Year circle */}
-                <div className="w-24 h-24 rounded-full bg-purple-500 flex items-center justify-center text-white text-xl font-bold shadow-lg z-10">
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  transition={{ duration: 0.5 }}
+                  className="z-10 flex items-center justify-center w-24 h-24 text-xl font-bold text-white rounded-full shadow-lg bg-gradient-to-r from-violet-500 to-fuchsia-500"
+                >
                   {event.year}
-                </div>
+                </motion.div>
 
                 {/* Content */}
-                <div className="flex-1 bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg max-w-md">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-3xl">{event.emoji}</span>
-                    <h3 className="text-2xl font-bold text-purple-700">
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex-1 max-w-md p-6 shadow-lg bg-white/80 backdrop-blur-sm rounded-xl"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
+                    viewport={{ once: true }}
+                    className="flex items-center gap-3 mb-3"
+                  >
+                    <motion.span
+                      animate={{ rotate: [0, 10, -10, 0] }}
+                      transition={{
+                        duration: 0.5,
+                        repeat: Infinity,
+                        repeatDelay: 3,
+                      }}
+                      className="text-3xl"
+                    >
+                      {event.emoji}
+                    </motion.span>
+                    <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-purple-600">
                       {event.title}
                     </h3>
-                  </div>
-                  <p className="text-gray-700">{event.description}</p>
-                </div>
+                  </motion.div>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 + 0.5 }}
+                    viewport={{ once: true }}
+                    className="text-gray-700"
+                  >
+                    {event.description}
+                  </motion.p>
+                </motion.div>
               </motion.div>
             ))}
           </div>

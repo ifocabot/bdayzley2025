@@ -7,6 +7,7 @@ import confetti from "canvas-confetti";
 export default function Cake() {
   const [isOpen, setIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
 
   const handleOpenCake = () => {
     setIsOpen(true);
@@ -14,6 +15,10 @@ export default function Cake() {
       setShowPopup(true);
       triggerConfetti();
     }, 2000);
+  };
+
+  const handleChoiceSelect = (choice: string) => {
+    setSelectedChoice(choice);
   };
 
   const triggerConfetti = () => {
@@ -48,11 +53,45 @@ export default function Cake() {
   };
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-b from-purple-50 to-white py-20">
-      <div className="container mx-auto px-4">
-        <h2 className="mb-12 text-center text-5xl font-black uppercase text-purple-900">
-          Kue Spesial
-        </h2>
+    <section className="relative py-20 bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: Math.random() * 100 + 50,
+              height: Math.random() * 100 + 50,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              background: i % 2 === 0 ? "#8b5cf6" : "#d946ef",
+              opacity: 0.1,
+            }}
+            animate={{
+              y: [0, Math.random() * 100 - 50],
+              x: [0, Math.random() * 100 - 50],
+              scale: [1, Math.random() * 0.5 + 0.5],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container px-4 mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-12 text-4xl font-bold text-center text-transparent md:text-5xl bg-clip-text bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600"
+        >
+          Kue Surprise
+        </motion.h2>
 
         <div className="flex flex-col items-center justify-center">
           <div className="relative h-[400px] w-[400px]">
@@ -67,7 +106,7 @@ export default function Cake() {
                   <svg
                     viewBox="0 0 200 200"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-full w-full"
+                    className="w-full h-full"
                   >
                     {/* Base cake */}
                     <motion.rect
@@ -136,11 +175,11 @@ export default function Cake() {
                   </svg>
                   <motion.button
                     onClick={handleOpenCake}
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 transform rounded-full bg-purple-600 px-8 py-3 text-lg font-bold text-white shadow-lg transition-all hover:bg-purple-700 hover:shadow-xl"
+                    className="absolute bottom-0 px-8 py-3 text-lg font-bold text-white transition-all transform -translate-x-1/2 bg-purple-600 rounded-full shadow-lg left-1/2 hover:bg-purple-700 hover:shadow-xl"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Lihat Kue
+                    Klik untuk melihat
                   </motion.button>
                 </motion.div>
               ) : (
@@ -153,7 +192,7 @@ export default function Cake() {
                   <svg
                     viewBox="0 0 200 200"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-full w-full"
+                    className="w-full h-full"
                   >
                     {/* Base cake */}
                     <motion.rect
@@ -282,23 +321,23 @@ export default function Cake() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
             onClick={() => setShowPopup(false)}
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0, y: 50 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: 50 }}
-              className="relative max-w-lg rounded-2xl bg-white p-8 shadow-2xl"
+              className="relative max-w-lg p-8 bg-white shadow-2xl rounded-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setShowPopup(false)}
-                className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
+                className="absolute text-gray-500 right-4 top-4 hover:text-gray-700"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="w-6 h-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -321,13 +360,81 @@ export default function Cake() {
                   impianmu menjadi kenyataan. Terima kasih telah menjadi bagian
                   dari hidupku.
                 </p>
+
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <AnimatePresence>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className={`p-4 rounded-lg transition-all ${
+                        selectedChoice === "A"
+                          ? "bg-purple-600 text-white scale-110"
+                          : selectedChoice
+                          ? "bg-gray-100 opacity-50 cursor-not-allowed"
+                          : "bg-white hover:bg-purple-100 cursor-pointer"
+                      } shadow-lg`}
+                      onClick={() => !selectedChoice && handleChoiceSelect("A")}
+                    >
+                      <h4 className="mb-2 text-xl font-bold">Paket A</h4>
+                      <p className="text-sm">Tas</p>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className={`p-4 rounded-lg transition-all ${
+                        selectedChoice === "B"
+                          ? "bg-purple-600 text-white scale-110"
+                          : selectedChoice
+                          ? "bg-gray-100 opacity-50 cursor-not-allowed"
+                          : "bg-white hover:bg-purple-100 cursor-pointer"
+                      } shadow-lg`}
+                      onClick={() => !selectedChoice && handleChoiceSelect("B")}
+                    >
+                      <h4 className="mb-2 text-xl font-bold">Paket B</h4>
+                      <p className="text-sm">Gelang Dan Kalung</p>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className={`p-4 rounded-lg transition-all ${
+                        selectedChoice === "C"
+                          ? "bg-purple-600 text-white scale-110"
+                          : selectedChoice
+                          ? "bg-gray-100 opacity-50 cursor-not-allowed"
+                          : "bg-white hover:bg-purple-100 cursor-pointer"
+                      } shadow-lg`}
+                      onClick={() => !selectedChoice && handleChoiceSelect("C")}
+                    >
+                      <h4 className="mb-2 text-xl font-bold">Paket C</h4>
+                      <p className="text-sm">Sepatu dan Topi</p>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {selectedChoice && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-6 italic text-gray-600"
+                  >
+                    Pilihan apapun yang dipilih tidak akan merubah value barang.
+                    Pilih yang diinginkan dan dibutuhkan, choose wisely.
+                  </motion.p>
+                )}
+
                 <div className="flex justify-center space-x-4">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="rounded-full bg-purple-600 px-6 py-2 text-white shadow-lg transition-all hover:bg-purple-700"
+                    className="px-6 py-2 text-white transition-all bg-purple-600 rounded-full shadow-lg hover:bg-purple-700"
+                    onClick={() => {
+                      setSelectedChoice(null);
+                      setShowPopup(false);
+                    }}
                   >
-                    Terima Kasih
+                    {selectedChoice ? "Kembali" : "Terima Kasih"}
                   </motion.button>
                 </div>
               </div>

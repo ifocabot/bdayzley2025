@@ -16,10 +16,10 @@ export default function Home() {
       <Hero />
       <Story />
       <PhotoCarousel />
-      <MediaGallery />
       <Wishes />
       <Prayers />
       <Cake />
+      <MediaGallery />
       <Footer />
     </main>
   );

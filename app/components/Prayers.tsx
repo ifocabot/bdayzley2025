@@ -6,39 +6,39 @@ import { motion } from "framer-motion";
 const prayers = [
   {
     id: 1,
-    title: "Kesehatan",
-    text: "Semoga selalu diberikan kesehatan yang prima dan semangat yang tak pernah padam.",
-    emoji: "💪",
+    title: "Kesehatan & Kesejahteraan",
+    text: "Semoga selalu diberikan kesehatan yang prima, kesejahteraan yang berlimpah, dan semangat yang tak pernah padam.",
+    emoji: "💫",
   },
   {
     id: 2,
-    title: "Kebahagiaan",
-    text: "Semoga selalu dikelilingi kebahagiaan dan keceriaan dalam setiap langkah.",
-    emoji: "😊",
+    title: "Keluarga & Kebahagiaan",
+    text: "Semoga keluarga selalu harmonis, penuh kebahagiaan, dan dikelilingi keceriaan dalam setiap langkah.",
+    emoji: "👨‍👩‍👧‍👦",
   },
   {
     id: 3,
-    title: "Kesuksesan",
-    text: "Semoga semua impian dan cita-cita dapat terwujud dengan gemilang.",
+    title: "Kesuksesan & Pencapaian",
+    text: "Semoga semua impian dan cita-cita dapat terwujud dengan gemilang, serta selalu diberkahi kesuksesan.",
     emoji: "⭐",
   },
   {
     id: 4,
-    title: "Keluarga",
-    text: "Semoga keluarga selalu harmonis dan penuh dengan kebahagiaan.",
-    emoji: "👨‍👩‍👧‍👦",
+    title: "Persahabatan & Kebersamaan",
+    text: "Semoga selalu dikelilingi teman-teman yang baik hati dan kebersamaan yang penuh makna.",
+    emoji: "🤝",
   },
   {
     id: 5,
-    title: "Kesejahteraan",
-    text: "Semoga selalu diberkahi rezeki yang berlimpah dan berkah.",
-    emoji: "💰",
+    title: "Kebijaksanaan & Inspirasi",
+    text: "Semoga selalu diberkahi kebijaksanaan dalam mengambil keputusan dan menjadi inspirasi bagi orang lain.",
+    emoji: "🌟",
   },
   {
     id: 6,
-    title: "Masa Depan",
-    text: "Semoga masa depan membawa kebahagiaan dan kesuksesan yang lebih besar.",
-    emoji: "🌟",
+    title: "Masa Depan & Harapan",
+    text: "Semoga masa depan membawa kebahagiaan yang lebih besar dan semua harapan menjadi kenyataan.",
+    emoji: "✨",
   },
 ];
 
@@ -50,72 +50,96 @@ export default function Prayers() {
   }, []);
 
   return (
-    <section className="min-h-screen py-20 relative overflow-hidden">
-      {/* Background elements */}
+    <section className="relative min-h-screen py-20 overflow-hidden bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50">
+      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {isClient &&
-          [...Array(20)].map((_, i) => (
+          [...Array(15)].map((_, i) => (
             <motion.div
-              key={`bg-star-${i}`}
-              className="absolute text-yellow-400"
+              key={`bg-element-${i}`}
+              className="absolute"
               style={{
-                fontSize: Math.random() * 20 + 10,
+                fontSize: Math.random() * 30 + 20,
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
+                color: i % 2 === 0 ? "#8b5cf6" : "#d946ef",
+                opacity: 0.1,
               }}
               animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.2, 0.8, 0.2],
+                y: [0, -20, 0],
+                rotate: [0, 360],
               }}
               transition={{
-                duration: 2 + Math.random() * 2,
+                duration: 10 + Math.random() * 10,
                 repeat: Infinity,
-                delay: Math.random() * 2,
+                ease: "linear",
               }}
             >
-              ✨
+              {i % 3 === 0 ? "✧" : i % 3 === 1 ? "❀" : "✦"}
             </motion.div>
           ))}
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+      <div className="relative z-10 max-w-6xl px-4 mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold text-center mb-8 text-purple-800"
+          className="mb-16 text-center"
         >
-          Doa & Harapan 🙏
-        </motion.h2>
+          <motion.h2
+            className="mb-4 text-5xl font-bold text-transparent md:text-6xl bg-clip-text bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            Doa & Harapan
+          </motion.h2>
+          <motion.div
+            className="w-24 h-1 mx-auto rounded-full bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600"
+            initial={{ width: 0 }}
+            whileInView={{ width: 96 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          />
+        </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-center text-lg text-purple-600 mb-12 max-w-2xl mx-auto"
-        >
-          Doa dan harapan terbaik untuk hari spesialmu.
-        </motion.p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {prayers.map((prayer, index) => (
             <motion.div
               key={prayer.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg"
+              className="relative group"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-4xl">{prayer.emoji}</span>
-                <h3 className="text-xl font-bold text-purple-700">
-                  {prayer.title}
-                </h3>
+              <div className="absolute inset-0 transition-opacity duration-300 opacity-0 bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500 rounded-2xl group-hover:opacity-100" />
+              <div className="relative p-6 transition-transform duration-300 transform shadow-lg bg-white/90 backdrop-blur-sm rounded-2xl group-hover:-translate-y-2">
+                <motion.div
+                  className="flex flex-col items-center text-center"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <motion.div
+                    className="mb-4 text-5xl"
+                    animate={{
+                      y: [0, -10, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    {prayer.emoji}
+                  </motion.div>
+                  <h3 className="mb-3 text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-purple-600">
+                    {prayer.title}
+                  </h3>
+                  <p className="leading-relaxed text-gray-600">{prayer.text}</p>
+                </motion.div>
               </div>
-              <p className="text-gray-700">{prayer.text}</p>
             </motion.div>
           ))}
         </div>
