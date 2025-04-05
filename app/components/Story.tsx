@@ -5,33 +5,33 @@ import { motion } from "framer-motion";
 
 const timelineEvents = [
   {
-    year: "2000",
+    year: "2002",
     title: "Awal Perjalanan",
     description: "Lahir ke dunia dengan penuh kebahagiaan dan harapan.",
     emoji: "👶",
   },
   {
-    year: "2005",
+    year: "2007",
     title: "Masa Kecil yang Ceria",
     description:
       "Bermain dengan teman-teman dan belajar hal-hal baru setiap hari.",
     emoji: "🎮",
   },
   {
-    year: "2010",
+    year: "2012",
     title: "Pertumbuhan dan Perkembangan",
     description: "Mulai sekolah dasar dan menemukan passion dalam hidup.",
     emoji: "📚",
   },
   {
-    year: "2015",
+    year: "2017",
     title: "Masa Remaja",
     description:
       "Mengalami berbagai pengalaman berharga dan membentuk karakter.",
     emoji: "🌟",
   },
   {
-    year: "2020",
+    year: "2022",
     title: "Pencapaian dan Tantangan",
     description:
       "Menghadapi berbagai tantangan dan meraih pencapaian yang membanggakan.",
