@@ -19,7 +19,7 @@ export default function Footer() {
 
           <div className="flex space-x-6">
             <motion.a
-              href="https://instagram.com"
+              href="https://instagram.com/ifxxca"
               target="_blank"
               rel="noopener noreferrer"
               className="text-violet-600 hover:text-fuchsia-600 transition-colors"
@@ -44,7 +44,7 @@ export default function Footer() {
             </motion.a>
 
             <motion.a
-              href="https://twitter.com"
+              href="https://x.com/ifxxcaa"
               target="_blank"
               rel="noopener noreferrer"
               className="text-violet-600 hover:text-fuchsia-600 transition-colors"
